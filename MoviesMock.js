@@ -1,4 +1,4 @@
-export const peliculas = [
+export const movies = [
     {
       name: "El Padrino",
       type: "drama",
@@ -6,7 +6,7 @@ export const peliculas = [
     },
     {
       name: "Coco",
-      type: "animacion",
+      type: "animación",
       image: "https://www.eleconomista.com.mx/__export/1510364666365/sites/eleconomista/img/2017/11/10/coco-1680x1050-miguel-dante-hector-pixar-animation-2017-hd-4k-10160_2.jpg_314829408.jpg"
     },
     {
@@ -24,6 +24,6 @@ export const peliculas = [
       type: "comedia",
       image: "https://m.media-amazon.com/images/M/MV5BNGQwZjg5YmYtY2VkNC00NzliLTljYTctNzI5NmU3MjE2ODQzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX675_CR0,0,675,999_AL_.jpg"
     }
-  ];
+];
 
-  export const movieTypes = ["comedia", "drama", "thriller", "terror", "animacion"];
+export const movieTypes = ["comedy", "drama", "thriller", "terror", "animation"];
