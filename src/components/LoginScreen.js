@@ -1,75 +1,68 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 import { saveData, getData } from '../store/store';
-import { FONT_COLOR, PRIMARY } from '../utils/colors';
-import { LOGGEDUSER, USERSFILTERS } from '../utils/constants';
+import { FONT_TITLE} from '../utils/colors';
+import { LOGGEDUSER, USERSFILTERS, BACKGROUNDLOGIN } from '../utils/constants';
 
 
 const LoginScreen = props => {
   const [userName, setUserName] = useState(null);
   const [pass, setPass] = useState(null);
+  const { screen, image, welcomeText, input, button } = styles;
 
   const signIn = async () => {
-      const usersLocalstorage = await getData(USERSFILTERS);
-      const newUserFilters = {
-        animation: true,
-        comedy: true,
-        drama: true,
-        thriller: true,
-        terror: true
-      };
+    const usersLocalstorage = await getData(USERSFILTERS);
+    const newUserFilters = {
+      animation: true,
+      comedy: true,
+      drama: true,
+      thriller: true,
+      terror: true
+    };
 
-      if ( usersLocalstorage === null ) {
-        const newUsers = {};
-        newUsers[userName] = newUserFilters;
+    if (usersLocalstorage === null) {
+      const newUsers = {};
+      newUsers[userName] = newUserFilters;
 
-        await saveData(USERSFILTERS, newUsers);
-        await saveData(LOGGEDUSER, userName);
-      } else {
-        if ( usersLocalstorage[userName] === undefined ) {
-          usersLocalstorage[userName] = newUserFilters;
-          await saveData(USERSFILTERS, usersLocalstorage);
-        }
-        await saveData(LOGGEDUSER, userName);
+      await saveData(USERSFILTERS, newUsers);
+      await saveData(LOGGEDUSER, userName);
+    } else {
+      if (usersLocalstorage[userName] === undefined) {
+        usersLocalstorage[userName] = newUserFilters;
+        await saveData(USERSFILTERS, usersLocalstorage);
       }
+      await saveData(LOGGEDUSER, userName);
+    }
 
-      props.navigation.navigate('Home');
-      // props.navigation.navigate('Home', {
-      //   user: userName,
-      //   users: usersLocalstorage
-      // });
+    props.navigation.navigate('Home');
+    // props.navigation.navigate('Home', {
+    //   user: userName,
+    //   users: usersLocalstorage
+    // });
   };
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.welcomeText}>Bienvenido a Pelis App</Text>
+    <View style={screen}>
+      <ImageBackground source={BACKGROUNDLOGIN} style={image}>
+      <Text style={welcomeText}>Bienvenido a Pelis App</Text>
       <TextInput
-        style={styles.input}
-        onChangeText={setUserName}
-        placeholder="Ingrese usuario..."
-        value={userName} />
+      style={input}
+      onChangeText={setUserName}
+      placeholder="Ingrese usuario..."
+      value={userName} />
       <TextInput
-        style={styles.input}
-        onChangeText={setPass}
-        placeholder="Ingrese password..."
-        value={pass}
-        secureTextEntry={true} />
+      style={input}
+      onChangeText={setPass}
+      placeholder="Ingrese password..."
+      value={pass}
+      secureTextEntry={true} />
 
       <TouchableOpacity
-        style={{
-            borderWidth:1,
-            borderColor:'#eee',
-            alignItems:'center',
-            justifyContent:'center',
-            width:100,
-            height:100,
-            backgroundColor:PRIMARY,
-            borderRadius:50,
-            marginTop: 50
-          }}
-          onPress={signIn}>
-        <Text style={{fontSize: 20, color: "#fff"}}>Login</Text>
+      style={button}
+      onPress={signIn}>
+      <Text style={{fontSize: 20, color: "#fff"}}>Login</Text>
       </TouchableOpacity>
+      </ImageBackground>
     </View>
   );
 };
@@ -77,15 +70,22 @@ const LoginScreen = props => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    //backgroundColor: PRIMARY
+  },
+  image: { 
+    flex:2,
     alignItems: 'center',
-    backgroundColor: PRIMARY
+
   },
   welcomeText: {
-    color: FONT_COLOR,
+    color: FONT_TITLE,
+    backgroundColor: "#fffbf4",
     fontWeight: 'bold',
     fontSize: 30,
     marginTop: 150,
-    marginBottom: 50
+    marginBottom: 50,
+    borderRadius: 20,
+    padding: 10
   },
   input: {
     height: 40,
@@ -98,7 +98,15 @@ const styles = StyleSheet.create({
     padding: 10
   },
   button: {
-    borderColor: "#fff"
+    borderWidth: 1,
+    borderColor: '#eee',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 200,
+    height: 50,
+    backgroundColor: '#20dad8',
+    borderRadius: 20,
+    marginTop: 50
   }
 });
 
