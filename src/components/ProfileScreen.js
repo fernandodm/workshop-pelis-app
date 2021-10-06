@@ -24,6 +24,7 @@ const ProfileScreen = props => {
     const [isTerror, setIsTerror] = useState(false);
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState({});
+    const {screen, text, button} = styles;
 
     useEffect(async () => {
         const usersLocalstorage = await getData(USERSFILTERS);
@@ -61,8 +62,8 @@ const ProfileScreen = props => {
     };
 
     return (
-        <View style={styles.screen}>
-            <Text style={styles.text}>Usuario: {user}</Text>
+        <View style={screen}>
+            <Text style={text}>Usuario: {user}</Text>
             <FilterSwitch
                 name={'Animación'}
                 state={isAnimation}
@@ -83,7 +84,7 @@ const ProfileScreen = props => {
                 name={'Terror'}
                 state={isTerror}
                 onChange={newValue => setIsTerror(newValue)} />
-            <View style={styles.button}>
+            <View style={button}>
                 <Button
                     onPress={saveFilters}
                     title="Guardar"/>

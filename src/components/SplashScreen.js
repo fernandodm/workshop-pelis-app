@@ -3,9 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { FONT_COLOR, PRIMARY } from '../utils/colors';
 
 const SplashScreen = () => {
+    const {screen, text} = styles;
     return (
-        <View style={styles.screen}>
-            <Text style={styles.text}>Cargando...</Text>
+        <View style={screen}>
+            <Text style={text}>Cargando...</Text>
         </View>
     );
 };
