@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, ToastAndroid } from 'react-native';
 import { saveData, getData } from '../store/store';
 import { FONT_TITLE} from '../utils/colors';
 import { LOGGEDUSER, USERSFILTERS, BACKGROUNDLOGIN } from '../utils/constants';
 
 
 const LoginScreen = props => {
-  const [userName, setUserName] = useState(null);
-  const [pass, setPass] = useState(null);
+  const [userName, setUserName] = useState('');
+  const [pass, setPass] = useState('');
   const { screen, image, welcomeText, input, button } = styles;
 
   const signIn = async () => {
+    if ( userName === '' || pass === '' ) {
+      return ToastAndroid.show("Complete todos los campos", ToastAndroid.LONG);
+    };
+
     const usersLocalstorage = await getData(USERSFILTERS);
     const newUserFilters = {
       animation: true,
@@ -59,6 +63,7 @@ const LoginScreen = props => {
 
       <TouchableOpacity
       style={button}
+      activeOpacity={0.6}
       onPress={signIn}>
       <Text style={{fontSize: 20, color: "#fff"}}>Login</Text>
       </TouchableOpacity>
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: PRIMARY
   },
-  image: { 
+  image: {
     flex:2,
     alignItems: 'center',
 

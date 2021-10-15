@@ -1,8 +1,8 @@
-export const ANIMATION = 'animación';
-export const COMEDY = 'comedia';
-export const TERROR = 'terror';
+export const ANIMATION = 'Animación';
+export const COMEDY = 'Comedia';
+export const TERROR = 'Terror';
 export const THRILLER = 'Thriller';
-export const DRAMA = 'drama';
+export const DRAMA = 'Drama';
 
 export const LOGGEDUSER = 'loggedUser';
 export const USERSFILTERS = 'users';
