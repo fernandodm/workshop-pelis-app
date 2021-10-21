@@ -4,9 +4,15 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 public class ConnectionStatusModuleManager extends ReactContextBaseJavaModule {
+  private ConnectivityManager connectivity;
+
   public ConnectionStatusModuleManager (ReactApplicationContext reactContext) {
     super(reactContext);
+    connectivity = (ConnectivityManager) reactContext.getSystemService(reactContext.CONNECTIVITY_SERVICE);
   }
 
   @Override
@@ -16,6 +22,10 @@ public class ConnectionStatusModuleManager extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void checkConnectionStatus(Callback callback) {
-    callback.invoke("Conectado");
+
+    NetworkInfo activeNetwork = connectivity.getActiveNetworkInfo();
+    boolean isConnected = activeNetwork != null &&
+                          activeNetwork.isConnectedOrConnecting();
+    callback.invoke(isConnected);
   }
 }

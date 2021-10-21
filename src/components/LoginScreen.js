@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, ToastAndroid } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, ToastAndroid, NativeModules, Platform } from 'react-native';
 import { saveData, getData } from '../store/store';
 import { FONT_TITLE} from '../utils/colors';
 import { LOGGEDUSER, USERSFILTERS, BACKGROUNDLOGIN } from '../utils/constants';
 
+const { ConnectionStatusModule } = NativeModules;
 
 const LoginScreen = props => {
   const [userName, setUserName] = useState('');
   const [pass, setPass] = useState('');
   const { screen, image, welcomeText, input, button } = styles;
 
-  const signIn = async () => {
+  const sigInIfConnected = async (isConnected) => {
+
+    if(!isConnected){
+      return ToastAndroid.show("Por favor conectese a una red", ToastAndroid.LONG);
+    }
     if ( userName === '' || pass === '' ) {
       return ToastAndroid.show("Complete todos los campos", ToastAndroid.LONG);
-    };
+    }
 
     const usersLocalstorage = await getData(USERSFILTERS);
     const newUserFilters = {
@@ -43,6 +48,14 @@ const LoginScreen = props => {
     //   user: userName,
     //   users: usersLocalstorage
     // });
+  }
+
+  const signIn = async () => {
+    if(Platform.OS === 'android'){
+      ConnectionStatusModule.checkConnectionStatus(sigInIfConnected);
+    }else{
+      await sigInIfConnected(true)
+    }
   };
 
   return (

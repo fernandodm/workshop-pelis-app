@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Platform, StyleSheet, Switch, Text, ToastAndroid, View, NativeModules } from 'react-native';
+import { Button, Platform, StyleSheet, Switch, Text, ToastAndroid, View } from 'react-native';
 import { getData, saveData } from '../store/store';
 import { LOGGEDUSER, USERSFILTERS } from '../utils/constants';
-
-const { ConnectionStatusModule } = NativeModules; 
 
 const FilterSwitch = ({name, state, onChange}) => {
     return (
@@ -26,7 +24,6 @@ const ProfileScreen = props => {
     const [isTerror, setIsTerror] = useState(false);
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState({});
-    const [connectionStatus, setConnectionStatus] = useState(null);
     const {screen, text, button} = styles;
 
     useEffect(async () => {
@@ -44,7 +41,7 @@ const ProfileScreen = props => {
         setIsThriller(userFilters.thriller);
         setIsTerror(userFilters.terror);
         
-        await ConnectionStatusModule.checkConnectionStatus(setConnectionStatus)
+        //await ConnectionStatusModule.checkConnectionStatus(setConnectionStatus)
     }, []);
 
     const saveFilters = () => {
@@ -68,7 +65,6 @@ const ProfileScreen = props => {
 
     return (
         <View style={screen}>
-            <Text style={text}>Conexion: {connectionStatus}</Text>
             <Text style={text}>Usuario: {user}</Text>
             <FilterSwitch
                 name={'Animación'}
