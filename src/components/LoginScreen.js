@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, ImageBackground, ToastAndroid, NativeModules, Platform } from 'react-native';
+import { TouchableWithoutFeedback, Text, TextInput, TouchableOpacity, View, ImageBackground, ToastAndroid, NativeModules, Platform, Keyboard } from 'react-native';
 import { saveData, getData } from '../store/store';
 import { FONT_TITLE} from '../utils/colors';
 import { LOGGEDUSER, USERSFILTERS, BACKGROUNDLOGIN } from '../utils/constants';
@@ -59,33 +59,35 @@ const LoginScreen = props => {
   };
 
   return (
-    <View style={screen}>
-      <ImageBackground source={BACKGROUNDLOGIN} style={image}>
-      <Text style={welcomeText}>Bienvenido a Pelis App</Text>
-      <TextInput
-      style={input}
-      onChangeText={setUserName}
-      placeholder="Ingrese usuario..."
-      value={userName} />
-      <TextInput
-      style={input}
-      onChangeText={setPass}
-      placeholder="Ingrese password..."
-      value={pass}
-      secureTextEntry={true} />
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={screen}>
+        <ImageBackground source={BACKGROUNDLOGIN} style={image}>
+          <Text style={welcomeText}>Bienvenido a Pelis App</Text>
+          <TextInput
+            style={input}
+            onChangeText={setUserName}
+            placeholder="Ingrese usuario..."
+            value={userName} />
+          <TextInput
+            style={input}
+            onChangeText={setPass}
+            placeholder="Ingrese password..."
+            value={pass}
+            secureTextEntry={true} />
 
-      <TouchableOpacity
-      style={button}
-      activeOpacity={0.6}
-      onPress={signIn}>
-      <Text style={{fontSize: 20, color: "#fff"}}>Login</Text>
-      </TouchableOpacity>
-      </ImageBackground>
-    </View>
+          <TouchableOpacity
+            style={button}
+            activeOpacity={0.6}
+            onPress={signIn}>
+            <Text style={{fontSize: 20, color: "#fff"}}>Login</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = {
   screen: {
     flex: 1,
     //backgroundColor: PRIMARY
@@ -126,6 +128,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 50
   }
-});
+};
 
 export default LoginScreen;

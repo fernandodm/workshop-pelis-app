@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Platform, StyleSheet, Switch, Text, ToastAndroid, View } from 'react-native';
+import { Button, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { getData, saveData } from '../store/store';
 import { LOGGEDUSER, USERSFILTERS } from '../utils/constants';
-
-const FilterSwitch = ({name, state, onChange}) => {
-    return (
-        <View style={styles.filtroContainer}>
-            <Text>{name}</Text>
-            <Switch
-                trackColor={{true: '#2196f3', false: '#778899'}}
-                thumbColor={Platform.OS === 'android' ? '#2196f3' : ''}
-                value={state}
-                onValueChange={onChange} />
-        </View>
-    );
-};
+import FilterSwitch from './FilterSwitch';
 
 const ProfileScreen = props => {
     const [isAnimation, setIsAnimation] = useState(false);

@@ -3,8 +3,6 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MoviesScreen from './MoviesScreen';
 import ProfileScreen from './ProfileScreen';
-import { BACKGROUNDHOME } from '../utils/constants';
-
 
 const Tab = createMaterialBottomTabNavigator();
 
